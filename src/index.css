@@ -1,0 +1,254 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: 210 100% 35%;
+    --primary-foreground: 210 40% 98%;
+  }
+}
+
+body {
+  @apply bg-gray-50;
+}
+
+.dashboard-card {
+  @apply bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow
+         overflow-hidden;
+}
+
+.stat-card {
+  @apply flex flex-col space-y-2 dashboard-card;
+}
+
+.stat-value {
+  @apply text-3xl font-semibold text-gray-900;
+}
+
+.stat-label {
+  @apply text-sm text-gray-500;
+}
+
+.action-button {
+  @apply flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-white bg-[hsl(var(--primary))] hover:bg-[hsl(var(--primary)/_0.9)] transition-colors;
+}
+
+.notification-badge {
+  @apply absolute -top-1 -right-1 h-2 w-2 bg-red-500 rounded-full;
+}
+
+.hover-card {
+  @apply transition-all duration-200 hover:scale-[1.02] hover:shadow-lg;
+}
+
+.status-badge {
+  @apply px-2 py-1 rounded-full text-xs font-medium;
+}
+
+.tab-button {
+  @apply px-4 py-2 font-medium transition-colors duration-200;
+}
+
+.chart-tooltip {
+  @apply bg-white shadow-lg rounded-lg p-2 border text-sm;
+}
+
+.upload-zone {
+  @apply border-2 border-dashed border-gray-300 rounded-lg p-8 
+         text-center transition-colors cursor-pointer
+         hover:border-[hsl(var(--primary))] hover:bg-gray-50;
+}
+
+.upload-zone.dragging {
+  @apply border-[hsl(var(--primary))] bg-blue-50/20;
+}
+
+.file-input {
+  @apply px-3 py-1 border rounded-lg text-sm
+         focus:outline-none focus:ring-1 focus:ring-[hsl(var(--primary))];
+}
+
+.faq-item {
+  @apply border rounded-lg transition-all duration-200;
+}
+
+.faq-question {
+  @apply w-full px-4 py-3 flex items-center justify-between 
+         hover:bg-gray-50 font-medium text-left;
+}
+
+.faq-answer {
+  @apply px-4 py-3 bg-gray-50 text-gray-600 border-t;
+}
+
+.metric-card {
+  @apply p-4 rounded-lg border border-gray-100
+         hover:border-gray-200 transition-colors;
+}
+
+.kpi-card {
+  @apply flex items-center justify-between p-3 bg-gray-50 rounded-lg
+         hover:bg-gray-100 transition-colors;
+}
+
+.gradient-card {
+  @apply bg-gradient-to-br from-white/10 to-transparent
+         backdrop-blur-sm;
+}
+
+.metric-value {
+  @apply text-2xl font-bold text-gray-900;
+}
+
+.metric-label {
+  @apply text-sm text-gray-500;
+}
+
+.change-indicator {
+  @apply px-2 py-1 rounded-full text-xs font-medium;
+}
+
+.change-positive {
+  @apply bg-green-50 text-green-600;
+}
+
+.change-negative {
+  @apply bg-red-50 text-red-600;
+}
+
+/* Add more custom styles as needed */
+
+.content-container {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8;
+}
+
+.section-container {
+  @apply space-y-8;
+}
+
+.grid-layout {
+  @apply grid gap-6 md:gap-8;
+}
+
+.grid-cols-responsive {
+  @apply grid-cols-1 md:grid-cols-2 lg:grid-cols-3;
+}
+
+.scrollable-container {
+  @apply overflow-y-auto hover:bg-gray-50;
+}
+
+.card-content {
+  @apply space-y-4;
+}
+
+.card-header {
+  @apply flex items-center justify-between mb-4;
+}
+
+.table-container {
+  @apply overflow-x-auto -mx-6 px-6;
+}
+
+.table-wrapper {
+  @apply min-w-full divide-y divide-gray-200;
+}
+
+.responsive-padding {
+  @apply p-4 sm:p-6 lg:p-8;
+}
+
+.gap-standard {
+  @apply gap-4 md:gap-6 lg:gap-8;
+}
+
+@layer utilities {
+  .custom-scrollbar {
+    @apply overflow-auto;
+  }
+
+  /* Firefox */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #E2E8F0 transparent;
+  }
+
+  /* Chrome, Edge, and Safari */
+  .custom-scrollbar::-webkit-scrollbar {
+    @apply w-1.5;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-gray-200 rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-300;
+  }
+}
+
+/* Add after existing styles */
+
+.sync-button {
+  @apply flex items-center gap-2 px-4 py-2 rounded-lg border font-medium
+         transition-all duration-200 focus:outline-none focus:ring-2 
+         focus:ring-[hsl(var(--primary))] focus:ring-offset-2;
+}
+
+.sync-button-idle {
+  @apply bg-white text-gray-700 border-gray-200 
+         hover:bg-gray-50 hover:border-gray-300;
+}
+
+.sync-button-syncing {
+  @apply bg-gray-50 text-gray-400 border-gray-200 cursor-not-allowed;
+}
+
+.sync-status {
+  @apply flex items-center gap-2 text-sm;
+}
+
+.sync-status-connected {
+  @apply text-green-600;
+}
+
+.sync-status-error {
+  @apply text-red-600;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Add to your existing styles */
+.health-score-circle {
+  @apply transition-all duration-1000 ease-out;
+  stroke-linecap: round;
+}
+
+.quick-action-button {
+  @apply flex items-center justify-between p-4 bg-white rounded-lg border 
+         hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2
+         focus:ring-[hsl(var(--primary))] focus:ring-offset-2;
+}
+
+.metric-tile {
+  @apply p-4 bg-gray-50 rounded-lg transition-colors
+         hover:bg-gray-100;
+}
+
+.filter-select {
+  @apply px-3 py-2 border rounded-lg text-sm
+         focus:outline-none focus:ring-1 focus:ring-[hsl(var(--primary))];
+}
