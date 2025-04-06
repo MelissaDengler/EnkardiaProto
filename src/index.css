@@ -4,8 +4,35 @@
 
 @layer base {
   :root {
-    --primary: 210 100% 35%;
-    --primary-foreground: 210 40% 98%;
+    /* Softer navy blues */
+    --navy-50: 215 30% 97%;
+    --navy-100: 215 30% 92%;
+    --navy-200: 215 25% 84%;
+    --navy-300: 215 25% 75%;
+    --navy-400: 215 20% 65%;
+    --navy-500: 215 25% 55%;
+    --navy-600: 215 30% 45%;
+    --navy-700: 215 35% 35%;
+    --navy-800: 215 35% 25%;
+    --navy-900: 215 35% 20%;
+
+    /* Sophisticated grays */
+    --gray-soft: 220 20% 97%;
+    --gray-subtle: 220 16% 93%;
+    --gray-light: 220 13% 91%;
+    --gray-muted: 220 12% 89%;
+    --gray-medium: 220 10% 84%;
+    --gray-deep: 220 9% 78%;
+
+    /* Refined primary colors */
+    --primary: 215 65% 45%;
+    --primary-light: 215 65% 55%;
+    --primary-dark: 215 65% 35%;
+    --accent: 215 100% 50%;
+  }
+
+  body {
+    @apply bg-[hsl(var(--gray-soft))];
   }
 }
 
@@ -14,12 +41,15 @@ body {
 }
 
 .dashboard-card {
-  @apply bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow
+  @apply bg-white rounded-xl shadow-sm border border-gray-100/50
+         hover:shadow-md transition-all duration-200
          overflow-hidden;
 }
 
 .stat-card {
-  @apply flex flex-col space-y-2 dashboard-card;
+  @apply flex flex-col space-y-2 p-6 bg-white rounded-xl
+         border border-gray-100/50 shadow-sm
+         hover:shadow-md transition-all duration-200;
 }
 
 .stat-value {
@@ -31,7 +61,12 @@ body {
 }
 
 .action-button {
-  @apply flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-white bg-[hsl(var(--primary))] hover:bg-[hsl(var(--primary)/_0.9)] transition-colors;
+  @apply flex items-center justify-center gap-2 px-4 py-2 
+         rounded-lg text-white bg-[hsl(var(--primary))]
+         hover:bg-[hsl(var(--primary-dark))] 
+         active:bg-[hsl(var(--primary-dark))]
+         shadow-sm hover:shadow
+         transition-all duration-200;
 }
 
 .notification-badge {
@@ -120,7 +155,7 @@ body {
 /* Add more custom styles as needed */
 
 .content-container {
-  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8;
+  @apply max-w-[1200px] mx-auto w-full px-4 sm:px-6 lg:px-8;
 }
 
 .section-container {
@@ -239,19 +274,31 @@ body {
 }
 
 .quick-action-button {
-  @apply flex items-center justify-between p-4 bg-white rounded-lg border 
-         hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2
-         focus:ring-[hsl(var(--primary))] focus:ring-offset-2;
+  @apply flex items-center gap-3 px-4 py-2.5 rounded-lg
+         border border-gray-200 bg-white
+         hover:bg-[hsl(var(--navy-50))] hover:border-[hsl(var(--navy-300))]
+         active:bg-[hsl(var(--navy-100))]
+         transition-all duration-200;
 }
 
 .metric-tile {
-  @apply p-4 bg-gray-50 rounded-lg transition-colors
-         hover:bg-gray-100;
+  @apply p-6 bg-white rounded-xl border border-gray-100/50
+         shadow-sm hover:shadow-md
+         transition-all duration-200;
 }
 
 .filter-select {
-  @apply px-3 py-2 border rounded-lg text-sm
-         focus:outline-none focus:ring-1 focus:ring-[hsl(var(--primary))];
+  @apply px-4 py-2 rounded-lg text-sm
+         bg-white border border-[hsl(var(--navy-100))]
+         hover:border-[hsl(var(--navy-200))]
+         focus:outline-none focus:ring-2 focus:ring-[hsl(var(--navy-200))]
+         transition-all duration-200
+         appearance-none
+         bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22currentColor%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')]
+         bg-[length:1.25rem_1.25rem]
+         bg-[right_0.5rem_center]
+         bg-no-repeat
+         pr-10;
 }
 
 @keyframes shake {
@@ -262,4 +309,324 @@ body {
 
 .animate-shake {
   animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+/* Navigation and header styles */
+.nav-link {
+  @apply px-4 py-2 rounded-lg text-[hsl(var(--navy-600))]
+         hover:bg-[hsl(var(--navy-50))] hover:text-[hsl(var(--navy-900))]
+         transition-all duration-200;
+}
+
+.nav-link-active {
+  @apply bg-[hsl(var(--navy-50))] text-[hsl(var(--navy-900))]
+         font-medium;
+}
+
+/* Table styles */
+.table-header {
+  @apply bg-[hsl(var(--navy-50))] text-[hsl(var(--navy-700))]
+         font-medium px-6 py-3;
+}
+
+.table-cell {
+  @apply px-6 py-4 border-b border-gray-100
+         transition-colors duration-200;
+}
+
+.table-row {
+  @apply hover:bg-[hsl(var(--navy-50))]
+         transition-colors duration-200;
+}
+
+/* Form controls */
+.input-field {
+  @apply px-4 py-2.5 rounded-lg border border-gray-200
+         focus:outline-none focus:ring-2 focus:ring-[hsl(var(--primary))]
+         hover:border-[hsl(var(--navy-300))]
+         transition-all duration-200;
+}
+
+/* Dialog/Modal styles */
+.modal-content {
+  @apply bg-white rounded-xl shadow-xl border border-gray-100/50
+         overflow-hidden max-w-2xl w-full mx-4;
+}
+
+.modal-header {
+  @apply px-6 py-4 border-b border-gray-100
+         bg-gradient-to-b from-white to-[hsl(var(--navy-50))];
+}
+
+.modal-body {
+  @apply p-6;
+}
+
+.modal-footer {
+  @apply px-6 py-4 border-t border-gray-100
+         bg-[hsl(var(--navy-50))];
+}
+
+/* Add these animation classes */
+.fade-in {
+  @apply opacity-0 animate-[fadeIn_0.2s_ease-out_forwards];
+}
+
+.slide-up {
+  @apply translate-y-4 opacity-0 animate-[slideUp_0.3s_ease-out_forwards];
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Add hover effects */
+.hover-lift {
+  @apply transition-transform duration-200 hover:-translate-y-1;
+}
+
+.hover-glow {
+  @apply transition-shadow duration-200 
+         hover:shadow-[0_0_15px_rgba(59,130,246,0.08)];
+}
+
+/* Add these enhanced styles */
+
+/* Sophisticated gradient backgrounds */
+.gradient-navy {
+  @apply bg-gradient-to-br from-[hsl(var(--navy-900))] via-[hsl(var(--navy-800))] to-[hsl(var(--navy-900))];
+}
+
+.gradient-light {
+  @apply bg-gradient-to-br from-white via-[hsl(var(--navy-50))] to-white;
+}
+
+.gradient-glow {
+  @apply relative;
+}
+
+.gradient-glow::before {
+  content: '';
+  @apply absolute inset-0 bg-gradient-to-br from-[hsl(var(--primary-light))] to-[hsl(var(--navy-500))]
+         opacity-0 transition-opacity duration-300 rounded-xl -z-10;
+}
+
+.gradient-glow:hover::before {
+  @apply opacity-10;
+}
+
+/* Enhanced card styles */
+.card-premium {
+  @apply bg-gradient-to-br from-white via-[hsl(var(--gray-soft))] to-white
+         border border-[hsl(var(--gray-light))]
+         shadow-[0_8px_30px_rgb(0,0,0,0.03)]
+         hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)]
+         transition-all duration-300
+         w-full
+         rounded-xl
+         overflow-hidden;
+}
+
+.card-header-premium {
+  @apply w-full
+         px-6 py-4
+         bg-gradient-to-br from-[hsl(var(--navy-600))] to-[hsl(var(--navy-700))]
+         border-b border-[hsl(var(--navy-400))]
+         shadow-sm;
+}
+
+.card-body-premium {
+  @apply p-6
+         w-full;
+}
+
+/* Glass morphism effects */
+.glass-effect {
+  @apply bg-white/90 backdrop-blur-sm
+         border border-[hsl(var(--gray-light))]
+         shadow-[0_8px_32px_0_rgba(31,38,135,0.04)];
+}
+
+.glass-dark {
+  @apply bg-[hsl(var(--navy-700))]/95 backdrop-blur-sm
+         border border-[hsl(var(--navy-500))]
+         shadow-[0_8px_32px_0_rgba(0,0,0,0.2)];
+}
+
+/* Enhanced button styles */
+.button-premium {
+  @apply relative overflow-hidden
+         bg-gradient-to-r from-[hsl(var(--navy-600))] to-[hsl(var(--navy-700))]
+         hover:from-[hsl(var(--navy-700))] hover:to-[hsl(var(--navy-600))]
+         text-white shadow-sm
+         hover:shadow-md
+         transition-all duration-300
+         rounded-lg
+         inline-flex items-center
+         justify-center;
+}
+
+.button-premium::before {
+  content: '';
+  @apply absolute inset-0 bg-white opacity-0
+         transition-opacity duration-300;
+}
+
+.button-premium:hover::before {
+  @apply opacity-10;
+}
+
+/* Enhanced table styles */
+.table-premium {
+  @apply rounded-xl overflow-hidden
+         border border-[hsl(var(--gray-light))]
+         shadow-sm;
+}
+
+.table-header-premium {
+  @apply bg-gradient-to-r from-[hsl(var(--navy-600))] to-[hsl(var(--navy-700))]
+         text-white font-medium py-4 px-6;
+}
+
+.table-row-premium {
+  @apply hover:bg-gradient-to-r hover:from-[hsl(var(--gray-soft))] hover:to-white
+         transition-colors duration-200;
+}
+
+/* Animated elements */
+.hover-scale {
+  @apply transition-transform duration-300 hover:scale-[1.02];
+}
+
+.hover-float {
+  @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+}
+
+/* Status indicators */
+.status-indicator {
+  @apply w-2 h-2 rounded-full;
+}
+
+.status-indicator-pulse {
+  @apply animate-pulse;
+}
+
+/* Enhanced scrollbar */
+.custom-scrollbar-premium {
+  @apply overflow-auto;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: hsl(var(--navy-300)) hsl(var(--navy-50)); /* Firefox */
+}
+
+/* Chrome, Edge, and Safari */
+.custom-scrollbar-premium::-webkit-scrollbar {
+  @apply w-2;
+}
+
+.custom-scrollbar-premium::-webkit-scrollbar-track {
+  @apply bg-[hsl(var(--navy-50))];
+}
+
+.custom-scrollbar-premium::-webkit-scrollbar-thumb {
+  @apply bg-[hsl(var(--gray-medium))] rounded-full 
+         hover:bg-[hsl(var(--gray-deep))]
+         transition-colors duration-200;
+}
+
+/* Card transitions */
+.card-transition {
+  @apply transition-all duration-300
+         hover:translate-y-[-2px]
+         hover:shadow-[0_20px_40px_-14px_rgba(0,0,0,0.15)];
+}
+
+/* Add these responsive utilities */
+.responsive-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6;
+}
+
+.responsive-text {
+  @apply text-sm sm:text-base;
+}
+
+.responsive-heading {
+  @apply text-xl sm:text-2xl lg:text-3xl font-bold;
+}
+
+/* Update existing classes for better mobile support */
+.card-premium {
+  @apply rounded-lg sm:rounded-xl;
+}
+
+.button-premium {
+  @apply w-full sm:w-auto justify-center;
+}
+
+.table-container {
+  @apply overflow-x-auto -mx-4 sm:-mx-0;
+}
+
+/* Add touch-friendly tap targets */
+.mobile-tap-target {
+  @apply min-h-[44px] min-w-[44px];
+}
+
+/* Improve mobile scrolling */
+.smooth-scroll {
+  @apply scroll-smooth overscroll-contain;
+}
+
+/* Better mobile form controls */
+.mobile-select {
+  @apply text-base sm:text-sm py-3 sm:py-2;
+}
+
+.mobile-input {
+  @apply text-base sm:text-sm py-3 sm:py-2;
+}
+
+/* Responsive modal */
+.modal-content {
+  @apply max-h-[90vh] w-[95vw] sm:w-full mx-auto sm:mx-4 
+         overflow-y-auto smooth-scroll;
+}
+
+/* Touch-friendly buttons */
+.touch-button {
+  @apply p-3 sm:p-2;
+}
+
+/* Add a new class for quick action icons */
+.quick-action-icon {
+  @apply h-5 w-5 shrink-0 text-white/90;
+}
+
+/* Grid layout utilities */
+.grid-layout-standard {
+  @apply grid grid-cols-1 gap-6
+         w-full
+         mx-auto;
+}
+
+/* Ensure dropdowns are above other content */
+.dropdown-container {
+  @apply relative z-50;
+}
+
+/* Ensure modals and dropdowns are above other content */
+.modal-overlay {
+  @apply z-40;
+}
+
+.modal-content {
+  @apply z-50;
 }

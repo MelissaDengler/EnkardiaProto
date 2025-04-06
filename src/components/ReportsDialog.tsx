@@ -53,17 +53,14 @@ export function ReportsDialog({ isOpen, onClose }: ReportsDialogProps) {
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg w-full max-w-2xl max-h-[90vh] overflow-hidden">
-        <div className="p-6 border-b">
-          <div className="flex items-center justify-between">
-            <h2 className="text-xl font-semibold">Download Reports</h2>
-            <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
-              <X className="h-5 w-5" />
-            </button>
-          </div>
+      <div className="modal-content">
+        <div className="modal-header">
+          <h2 className="text-xl font-semibold text-gray-900">Generate Report</h2>
+          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+            <X className="h-5 w-5" />
+          </button>
         </div>
-
-        <div className="p-6 space-y-6">
+        <div className="modal-body">
           {/* Filters */}
           <div className="grid grid-cols-2 gap-4">
             <div>
@@ -130,8 +127,7 @@ export function ReportsDialog({ isOpen, onClose }: ReportsDialogProps) {
             </div>
           </div>
         </div>
-
-        <div className="p-6 border-t bg-gray-50">
+        <div className="modal-footer">
           <div className="flex justify-between items-center">
             <div className="text-sm text-gray-500">
               {selectedReports.length} reports selected

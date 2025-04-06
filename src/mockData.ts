@@ -1,5 +1,5 @@
 export const userData = {
-  clientName: "Jennifer Anderson",
+  clientName: "Herman Miny",
   company: "Anderson Consulting LLC",
   stats: {
     revenueYTD: 524790,
@@ -122,25 +122,64 @@ export const userData = {
       priority: "low",
       status: "pending"
     }
-  ]
+  ],
+  summary: {
+    grossProfit: {
+      current: 241450,
+      previous: 211111,
+      percentageChange: 14.4
+    },
+    netProfit: {
+      current: 130200,
+      previous: 102344,
+      percentageChange: 27.2
+    },
+    grossMargin: {
+      current: 48.4,
+      previous: 47.4,
+      percentageChange: 2.1
+    },
+    operatingExpenses: {
+      current: 394590,
+      previous: 364890,
+      percentageChange: -8.1
+    }
+  }
+};
+
+interface StatusColors {
+  pending_review: string;
+  signed: string;
+  approved: string;
+  draft: string;
+  [key: string]: string;
+}
+
+const statusColors: StatusColors = {
+  pending_review: "text-yellow-600 bg-yellow-50",
+  signed: "text-green-600 bg-green-50",
+  approved: "text-blue-600 bg-blue-50",
+  draft: "text-gray-600 bg-gray-50"
 };
 
 export const getDocumentStatusColor = (status: string): string => {
-  const statusColors = {
-    pending_review: "text-yellow-600 bg-yellow-50",
-    signed: "text-green-600 bg-green-50",
-    approved: "text-blue-600 bg-blue-50",
-    draft: "text-gray-600 bg-gray-50"
-  };
   return statusColors[status] || "text-gray-600 bg-gray-50";
 };
 
+interface PriorityColors {
+  high: string;
+  medium: string;
+  low: string;
+  [key: string]: string;
+}
+
+const priorityColors: PriorityColors = {
+  high: "text-red-600 bg-red-50",
+  medium: "text-yellow-600 bg-yellow-50",
+  low: "text-green-600 bg-green-50"
+};
+
 export const getPriorityColor = (priority: string): string => {
-  const priorityColors = {
-    high: "text-red-600 bg-red-50",
-    medium: "text-yellow-600 bg-yellow-50",
-    low: "text-green-600 bg-green-50"
-  };
   return priorityColors[priority] || "text-gray-600 bg-gray-50";
 };
 
@@ -458,4 +497,22 @@ export const complianceReports = {
     },
     // Add more filings...
   ],
+};
+
+export const financialKPIs = {
+  operatingMargin: {
+    current: 32.8,
+    change: 2.4,
+    target: 30,
+  },
+  workingCapitalRatio: {
+    current: 1.8,
+    change: 0.3,
+    industryAvg: 1.5,
+  },
+  debtToEquity: {
+    current: 0.45,
+    change: -0.05,
+    target: 0.5,
+  }
 }; 

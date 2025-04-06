@@ -178,41 +178,41 @@ export function ProfitLossTable({ data }: ProfitLossTableProps) {
       </div>
 
       <div className="table-container custom-scrollbar">
-        <table className="table-wrapper">
-          <thead className="bg-gray-50">
-            <tr>
-              <th className="py-3 px-4 text-left font-medium text-gray-500">Account</th>
-              <th className="py-3 px-4 text-right font-medium text-gray-500">Current Period</th>
-              <th className="py-3 px-4 text-right font-medium text-gray-500">Previous Period</th>
-              <th className="py-3 px-4 text-right font-medium text-gray-500">Change</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-100">
-            {data.items.map((item) => renderPLItem(item))}
-            <tr className="font-semibold bg-gray-50">
-              <td className="py-3 px-4">Gross Profit</td>
-              <td className="py-3 px-4 text-right">{formatCurrency(data.summary.grossProfit.current)}</td>
-              <td className="py-3 px-4 text-right">{formatCurrency(data.summary.grossProfit.previous)}</td>
-              <td className="py-3 px-4 text-right">
-                <div className="flex items-center justify-end space-x-1">
-                  <TrendingUp className="h-4 w-4 text-green-500" />
-                  <span className="text-green-600">{data.summary.grossProfit.percentageChange}%</span>
-                </div>
-              </td>
-            </tr>
-            <tr className="font-semibold bg-gray-50">
-              <td className="py-3 px-4">Net Profit</td>
-              <td className="py-3 px-4 text-right">{formatCurrency(data.summary.netProfit.current)}</td>
-              <td className="py-3 px-4 text-right">{formatCurrency(data.summary.netProfit.previous)}</td>
-              <td className="py-3 px-4 text-right">
-                <div className="flex items-center justify-end space-x-1">
-                  <TrendingUp className="h-4 w-4 text-green-500" />
-                  <span className="text-green-600">{data.summary.netProfit.percentageChange}%</span>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-[hsl(var(--navy-50))]">
+              <tr>
+                <th className="table-header text-left">Account</th>
+                <th className="table-header text-right">Current Period</th>
+                <th className="table-header text-right">Previous Period</th>
+                <th className="table-header text-right">Change</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100 bg-white">
+              {data.items.map((item) => renderPLItem(item))}
+              <tr className="table-row">
+                <td className="table-cell font-medium">Gross Profit</td>
+                <td className="table-cell text-right">{formatCurrency(data.summary.grossProfit.current)}</td>
+                <td className="table-cell text-right">{formatCurrency(data.summary.grossProfit.previous)}</td>
+                <td className={`table-cell text-right ${
+                  data.summary.grossProfit.percentageChange > 0 ? 'text-green-600' : 'text-red-600'
+                }`}>
+                  {data.summary.grossProfit.percentageChange > 0 ? '+' : ''}{data.summary.grossProfit.percentageChange}%
+                </td>
+              </tr>
+              <tr className="table-row">
+                <td className="table-cell font-medium">Net Profit</td>
+                <td className="table-cell text-right">{formatCurrency(data.summary.netProfit.current)}</td>
+                <td className="table-cell text-right">{formatCurrency(data.summary.netProfit.previous)}</td>
+                <td className={`table-cell text-right ${
+                  data.summary.netProfit.percentageChange > 0 ? 'text-green-600' : 'text-red-600'
+                }`}>
+                  {data.summary.netProfit.percentageChange > 0 ? '+' : ''}{data.summary.netProfit.percentageChange}%
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

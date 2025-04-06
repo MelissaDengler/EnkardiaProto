@@ -1,4 +1,4 @@
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import { formatCurrency } from '../utils/formatters';
 
 interface RevenueChartProps {
@@ -9,25 +9,33 @@ export function RevenueChart({ data }: RevenueChartProps) {
   return (
     <div className="dashboard-card h-[300px]">
       <h2 className="text-xl font-semibold mb-4">Monthly Revenue</h2>
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="month" />
-          <YAxis 
-            tickFormatter={(value) => `$${value/1000}k`}
-          />
+      <ResponsiveContainer width="100%" height={400}>
+        <AreaChart data={data}>
+          <defs>
+            <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="hsl(var(--primary-light))" stopOpacity={0.1}/>
+              <stop offset="95%" stopColor="hsl(var(--primary-light))" stopOpacity={0}/>
+            </linearGradient>
+          </defs>
+          <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--navy-200))" />
+          <XAxis dataKey="month" stroke="hsl(var(--navy-600))" />
+          <YAxis stroke="hsl(var(--navy-600))" />
           <Tooltip 
-            formatter={(value: number) => formatCurrency(value)}
-            labelFormatter={(label) => `Month: ${label}`}
+            contentStyle={{ 
+              backgroundColor: 'white',
+              border: '1px solid hsl(var(--navy-200))',
+              borderRadius: '0.5rem',
+              boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
+            }}
           />
-          <Line
-            type="monotone"
-            dataKey="amount"
-            stroke="hsl(var(--primary))"
-            strokeWidth={2}
-            dot={{ fill: "hsl(var(--primary))" }}
+          <Area 
+            type="monotone" 
+            dataKey="amount" 
+            stroke="hsl(var(--primary))" 
+            fillOpacity={1}
+            fill="url(#colorRevenue)"
           />
-        </LineChart>
+        </AreaChart>
       </ResponsiveContainer>
     </div>
   );

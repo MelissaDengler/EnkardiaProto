@@ -13,6 +13,31 @@ interface User {
   email: string;
   name: string;
   role: string;
+  avatar?: string;
+  lastLogin?: string;
+  status: string;
+  permissions: string[];
+  preferences: {
+    notifications: boolean;
+    twoFactorAuth: boolean;
+    theme: string;
+  };
+  company?: string;
+  department?: string;
+  title?: string;
+  subscription?: {
+    plan: string;
+    status: string;
+    validUntil: string;
+  };
+  adminLevel?: number;
+  managedClients?: string[];
+  securityClearance?: string;
+  systemAccess?: {
+    console: boolean;
+    debug: boolean;
+    development: boolean;
+  };
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -22,42 +47,117 @@ const MOCK_USERS = {
     id: 'client-1',
     email: 'client@example.com',
     password: 'password123',
-    name: 'John Client',
+    name: 'John Smith',
     role: 'client',
-    permissions: ['view_dashboard', 'view_reports', 'view_documents']
+    company: 'Acme Corp',
+    avatar: '/avatars/client.jpg',
+    lastLogin: '2024-03-20T10:30:00Z',
+    status: 'active',
+    permissions: [
+      'view_dashboard',
+      'view_reports',
+      'view_documents',
+      'download_reports',
+      'view_calendar',
+      'view_compliance',
+      'manage_profile',
+      'request_support'
+    ],
+    preferences: {
+      notifications: true,
+      twoFactorAuth: false,
+      theme: 'light'
+    },
+    subscription: {
+      plan: 'business',
+      status: 'active',
+      validUntil: '2025-03-20'
+    }
   },
   'admin@example.com': {
     id: 'admin-1',
     email: 'admin@example.com',
     password: 'password345',
-    name: 'Sarah Admin',
+    name: 'Sarah Johnson',
     role: 'admin',
+    department: 'Account Management',
+    avatar: '/avatars/admin.jpg',
+    lastLogin: '2024-03-21T09:15:00Z',
+    status: 'active',
     permissions: [
-      'view_dashboard', 
-      'view_reports', 
+      'view_dashboard',
+      'view_reports',
       'view_documents',
       'manage_users',
       'manage_reports',
-      'manage_compliance'
-    ]
+      'manage_compliance',
+      'create_reports',
+      'edit_reports',
+      'delete_reports',
+      'manage_calendar',
+      'view_analytics',
+      'export_data',
+      'manage_notifications',
+      'access_api',
+      'view_audit_logs'
+    ],
+    preferences: {
+      notifications: true,
+      twoFactorAuth: true,
+      theme: 'system'
+    },
+    adminLevel: 2,
+    managedClients: ['client-1', 'client-2', 'client-3']
   },
   'master@example.com': {
     id: 'master-1',
     email: 'master@example.com',
     password: 'password678',
-    name: 'Master User',
+    name: 'Alex Thompson',
     role: 'master',
+    title: 'System Administrator',
+    avatar: '/avatars/master.jpg',
+    lastLogin: '2024-03-21T11:00:00Z',
+    status: 'active',
     permissions: [
-      'view_dashboard', 
-      'view_reports', 
+      'view_dashboard',
+      'view_reports',
       'view_documents',
       'manage_users',
       'manage_reports',
       'manage_compliance',
       'manage_admins',
       'system_settings',
-      'audit_logs'
-    ]
+      'audit_logs',
+      'manage_roles',
+      'manage_permissions',
+      'system_backup',
+      'system_restore',
+      'manage_integrations',
+      'manage_security',
+      'manage_billing',
+      'view_analytics',
+      'manage_templates',
+      'manage_api_keys',
+      'manage_webhooks',
+      'manage_automation',
+      'full_system_access'
+    ],
+    preferences: {
+      notifications: true,
+      twoFactorAuth: true,
+      theme: 'dark'
+    },
+    securityClearance: 'highest',
+    systemAccess: {
+      console: true,
+      debug: true,
+      development: true
+    },
+    emergencyContact: {
+      name: 'IT Department',
+      phone: '888-555-0000'
+    }
   }
 };
 
@@ -94,10 +194,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const user = MOCK_USERS[email.toLowerCase()];
     
     if (user && user.password === password) {
-      const { password: _, ...userWithoutPassword } = user;
+      // Remove sensitive data before storing in state
+      const { 
+        password: _, 
+        emergencyContact: __,
+        ...safeUserData 
+      } = user;
+
+      // Store additional data in localStorage
       localStorage.setItem('auth_token', 'mock_jwt_token');
       localStorage.setItem('user_role', user.role);
-      setUser(userWithoutPassword);
+      localStorage.setItem('user_preferences', JSON.stringify(user.preferences));
+      localStorage.setItem('last_login', new Date().toISOString());
+
+      setUser(safeUserData);
       navigate('/dashboard');
     } else {
       throw new Error('Invalid credentials');
